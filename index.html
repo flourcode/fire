@@ -4,8 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FIRE READERS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+        /* CSS Variables for better maintainability */
+        :root {
+            --bg-gradient-start: #0a0a0a;
+            --bg-gradient-mid: #1a1a2e;
+            --bg-gradient-end: #16213e;
+            --text-color-primary: #e0e6ed;
+            --text-color-secondary: #b8c5d1;
+            --accent-color: #00ff88; /* Green */
+            --accent-color-light: rgba(0, 255, 136, 0.1);
+            --accent-color-border: rgba(0, 255, 136, 0.3);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --header-bg: rgba(0, 0, 0, 0.3);
+            --header-border: rgba(255, 255, 255, 0.1);
+            --legend-bg: rgba(255, 255, 255, 0.03);
+            --legend-border: rgba(255, 255, 255, 0.1);
+            --section-bg: rgba(255, 255, 255, 0.02);
+            --info-color-blue: #00aaff;
+            --info-color-orange: #ffaa00;
+            --info-color-purple: #aa44ff;
+            --error-color: #ff6b6b;
+
+            --font-family-mono: 'JetBrains Mono', monospace;
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+        }
         
         * {
             margin: 0;
@@ -14,107 +45,132 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-            font-family: 'JetBrains Mono', monospace;
-            color: #e0e6ed;
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 50%, var(--bg-gradient-end) 100%);
+            font-family: var(--font-family-mono);
+            color: var(--text-color-primary);
             min-height: 100vh;
             overflow-x: hidden;
+            line-height: 1.5;
         }
         
         .header {
             text-align: center;
-            padding: 1.5rem 1rem;
-            background: rgba(0, 0, 0, 0.3);
+            padding: var(--spacing-lg) var(--spacing-md);
+            background: var(--header-bg);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid var(--header-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
         .header h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            letter-spacing: -0.03em;
+            color: #fff;
         }
         
         .header p {
-            font-size: 0.75rem;
-            opacity: 0.7;
+            font-size: 0.8rem;
+            opacity: 0.8;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.25em;
         }
         
         .legend {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            backdrop-filter: blur(5px);
+            background: var(--legend-bg);
+            border: 1px solid var(--legend-border);
+            border-radius: 12px;
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         
         .legend-title {
-            font-size: 0.8rem;
-            font-weight: 600;
+            font-size: 0.9rem;
+            font-weight: 700;
             color: #ffffff;
-            margin-bottom: 0.75rem;
+            margin-bottom: var(--spacing-lg);
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
         }
         
         .legend-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
         }
         
         .legend-section {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 6px;
-            padding: 0.75rem;
+            background: var(--section-bg);
+            border-radius: 10px;
+            padding: var(--spacing-md);
+            box-shadow: inset 0 0 10px rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
         
         .legend-section h3 {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: #00d4ff;
-            margin-bottom: 0.5rem;
+            margin-bottom: var(--spacing-sm);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.07em;
             border-bottom: 1px solid rgba(0, 212, 255, 0.3);
-            padding-bottom: 0.25rem;
+            padding-bottom: var(--spacing-xs);
         }
         
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
-            margin-bottom: 0.4rem;
-            font-size: 0.6rem;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-xs);
+            font-size: 0.7rem;
+            color: var(--text-color-secondary);
         }
         
         .legend-icon {
-            font-size: 0.75rem;
-            width: 1rem;
+            font-size: 0.85rem;
+            width: 1.2rem;
             text-align: center;
+            flex-shrink: 0;
+            color: var(--accent-color);
+        }
+
+        .legend-item span[style*="background-color"] {
+            width: 0.7rem;
+            height: 0.7rem;
+            border-radius: 50%;
+            display: inline-block;
             flex-shrink: 0;
         }
         
         .loading {
             text-align: center;
-            padding: 2rem;
-            font-size: 0.8rem;
-            opacity: 0.6;
+            padding: var(--spacing-xl);
+            font-size: 0.9rem;
+            opacity: 0.7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            color: var(--accent-color);
         }
         
         .spinner {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            border-top-color: #00ff88;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
+            border-top-color: var(--accent-color);
+            animation: spin 0.8s ease-in-out infinite;
+            margin-right: 0;
         }
         
         @keyframes spin {
@@ -122,77 +178,81 @@
         }
         
         .news-container {
-            max-width: 1400px;
+            max-width: 1500px;
             margin: 0 auto;
-            padding: 1rem;
+            padding: var(--spacing-lg);
         }
         
         .subreddit-section {
-            margin-bottom: 3rem;
+            margin-bottom: var(--spacing-xl);
+            padding-top: var(--spacing-md);
         }
         
         .subreddit-title {
-            font-size: 1rem;
-            font-weight: 500;
-            color: #00ff88;
-            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: var(--spacing-sm);
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            border-left: 3px solid #00ff88;
-            padding-left: 1rem;
+            letter-spacing: 0.12em;
+            border-left: 4px solid var(--accent-color);
+            padding-left: var(--spacing-md);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: var(--spacing-sm);
         }
         
         .member-count {
-            font-size: 0.6rem;
-            opacity: 0.7;
-            background: rgba(0, 255, 136, 0.1);
-            padding: 0.2rem 0.4rem;
-            border-radius: 3px;
-            color: #00ff88;
+            font-size: 0.7rem;
+            opacity: 0.8;
+            background: var(--accent-color-light);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: 4px;
+            color: var(--accent-color);
+            font-weight: 500;
         }
         
         .subreddit-description {
-            font-size: 0.65rem;
-            opacity: 0.8;
-            margin-bottom: 1rem;
-            padding-left: 1rem;
-            line-height: 1.4;
-            color: #b8c5d1;
+            font-size: 0.75rem;
+            opacity: 0.9;
+            margin-bottom: var(--spacing-lg);
+            padding-left: calc(var(--spacing-md) + 4px);
+            line-height: 1.6;
+            color: var(--text-color-secondary);
         }
         
-        .sort-indicator {
+        .sort-indicator, .api-note {
             text-align: center;
-            padding: 0.75rem;
-            font-size: 0.65rem;
+            padding: var(--spacing-md);
+            font-size: 0.7rem;
             opacity: 0.6;
-            background: rgba(0, 255, 136, 0.05);
-            border: 1px solid rgba(0, 255, 136, 0.2);
-            border-radius: 6px;
-            margin-bottom: 1rem;
+            background: rgba(0, 255, 136, 0.08);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            border-radius: 8px;
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.4;
         }
         
         .news-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
         }
         
         .fire-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            padding: 1rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: var(--spacing-md);
             transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(6px);
             position: relative;
             overflow: hidden;
-            height: 280px;
+            height: 300px;
             display: flex;
             flex-direction: column;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
         
         .fire-card::before {
@@ -201,81 +261,110 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #00ff88, transparent);
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(-3px);
         }
         
         .fire-card:hover {
-            transform: translateY(-2px);
-            border-color: rgba(255, 255, 255, 0.15);
-            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
         
         .fire-card:hover::before {
             opacity: 1;
+            transform: translateY(0);
         }
         
         .fire-title {
-            font-size: 0.75rem;
-            font-weight: 500;
-            line-height: 1.2;
-            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: var(--spacing-sm);
             color: #ffffff;
             text-decoration: none;
-            display: block;
-            max-height: 2.8rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
             overflow: hidden;
+            max-height: 3.9rem;
         }
         
         .fire-title:hover {
-            color: #00ff88;
+            color: var(--accent-color);
+            text-decoration: underline;
         }
         
+        .fire-type {
+            background: var(--accent-color-light);
+            border: 1px solid var(--accent-color-border);
+            border-radius: 5px;
+            padding: 0.2rem 0.4rem;
+            font-size: 0.55rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            text-align: center;
+            text-transform: uppercase;
+            align-self: flex-start;
+        }
+
         .fire-snippet {
-            font-size: 0.65rem;
-            line-height: 1.3;
-            opacity: 0.8;
-            margin-bottom: 0.75rem;
-            color: #b8c5d1;
+            font-size: 0.7rem;
+            line-height: 1.4;
+            opacity: 0.85;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-color-secondary);
             flex-grow: 1;
             overflow-y: auto;
-            text-align: justify;
-            max-height: 5rem;
+            text-align: left;
+            max-height: 5.6rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-color) transparent;
+        }
+
+        .fire-snippet::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .fire-snippet::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .fire-snippet::-webkit-scrollbar-thumb {
+            background-color: var(--accent-color);
+            border-radius: 10px;
+            border: 1px solid var(--card-bg);
         }
         
         .fire-metrics {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 0.2rem;
-            margin-bottom: 0.5rem;
-            font-size: 0.5rem;
-            opacity: 0.9;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
+            font-size: 0.55rem;
+            opacity: 0.95;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
         }
         
         .fire-metric {
             display: flex;
             align-items: center;
-            gap: 0.1rem;
+            gap: 0.2rem;
+            color: var(--text-color-primary);
+            min-width: 60px;
             justify-content: center;
         }
         
         .fire-metric-icon {
-            font-size: 0.6rem;
-        }
-        
-        .fire-type {
-            background: rgba(0, 255, 136, 0.15);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            border-radius: 4px;
-            padding: 0.15rem 0.3rem;
-            font-size: 0.5rem;
-            color: #00ff88;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            text-align: center;
-            text-transform: uppercase;
+            font-size: 0.7rem;
+            color: var(--accent-color);
         }
         
         .fire-meta {
@@ -283,164 +372,217 @@
             justify-content: space-between;
             align-items: center;
             font-size: 0.5rem;
-            opacity: 0.6;
+            opacity: 0.7;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.07em;
             margin-top: auto;
             flex-shrink: 0;
+            padding-top: var(--spacing-sm);
+            border-top: 1px dashed rgba(255, 255, 255, 0.05);
         }
         
         .fire-source {
-            color: #00ff88;
+            color: var(--accent-color);
             font-weight: 500;
+        }
+
+        .timestamp {
+            white-space: nowrap;
         }
         
         .error {
             text-align: center;
-            padding: 3rem;
-            color: #ff6b6b;
-            font-size: 0.8rem;
+            padding: var(--spacing-xl);
+            color: var(--error-color);
+            font-size: 0.9rem;
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            border-radius: 8px;
+            margin: var(--spacing-lg) auto;
+            max-width: 600px;
+        }
+
+        .error h3 {
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.1rem;
+        }
+        
+        .refresh-btn {
+            position: fixed;
+            bottom: var(--spacing-lg);
+            right: var(--spacing-lg);
+            background: var(--accent-color-light);
+            border: 1px solid var(--accent-color-border);
+            color: var(--accent-color);
+            padding: var(--spacing-md);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .refresh-btn:hover {
+            background: rgba(0, 255, 136, 0.25);
+            transform: rotate(360deg) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.3);
         }
         
         /* Responsive breakpoints */
         @media (max-width: 1200px) {
             .news-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            .legend-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
         }
         
         @media (max-width: 900px) {
             .news-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             }
-            
             .legend-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
         }
         
         @media (max-width: 600px) {
             .header h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
-            
+            .header p {
+                font-size: 0.7rem;
+            }
+            .news-container {
+                padding: var(--spacing-md);
+            }
             .news-grid {
                 grid-template-columns: 1fr;
-                gap: 0.75rem;
+                gap: var(--spacing-sm);
             }
-            
             .fire-card {
-                height: 260px;
-                padding: 0.8rem;
+                height: auto;
+                min-height: 280px;
+                padding: var(--spacing-sm);
             }
-            
             .fire-metrics {
-                grid-template-columns: 1fr 1fr;
-                gap: 0.3rem;
+                flex-direction: column;
+                align-items: flex-start;
+                font-size: 0.6rem;
+                gap: var(--spacing-xs);
+                margin-bottom: var(--spacing-sm);
             }
-            
+            .fire-metric {
+                justify-content: flex-start;
+            }
             .fire-meta {
                 font-size: 0.45rem;
-                flex-direction: column;
+                flex-direction: row;
+                justify-content: space-between;
                 gap: 0.2rem;
-                text-align: center;
+                text-align: left;
             }
-            
             .subreddit-title {
-                font-size: 0.9rem;
+                font-size: 1rem;
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 0.3rem;
+                padding-left: var(--spacing-sm);
             }
-            
             .subreddit-description {
-                font-size: 0.6rem;
+                font-size: 0.65rem;
+                padding-left: var(--spacing-sm);
             }
-        }
-        
-        .refresh-btn {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            color: #00ff88;
-            padding: 0.75rem;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-        }
-        
-        .refresh-btn:hover {
-            background: rgba(0, 255, 136, 0.2);
-            transform: rotate(180deg);
-        }
-        
-        .api-note {
-            text-align: center;
-            padding: 0.75rem;
-            font-size: 0.65rem;
-            opacity: 0.5;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            margin-bottom: 1rem;
-            background: rgba(255, 255, 255, 0.02);
+            .legend {
+                padding: var(--spacing-md);
+            }
+            .legend-section h3 {
+                font-size: 0.7rem;
+            }
+            .legend-item {
+                font-size: 0.65rem;
+            }
+            .refresh-btn {
+                padding: 0.6rem;
+                font-size: 1rem;
+                bottom: var(--spacing-md);
+                right: var(--spacing-md);
+            }
+            .api-note, .sort-indicator {
+                font-size: 0.6rem;
+                padding: 0.6rem;
+            }
+            .fire-snippet {
+                max-height: 6rem;
+            }
         }
         
         /* Touch-friendly improvements */
         @media (hover: none) and (pointer: coarse) {
             .fire-card:hover {
                 transform: none;
+                border-color: rgba(255, 255, 255, 0.08);
+                background: var(--card-bg);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
-            
+            .fire-card:hover::before {
+                opacity: 0;
+                transform: translateY(-3px);
+            }
             .fire-card:active {
-                transform: translateY(-1px);
+                transform: translateY(-2px);
                 background: rgba(255, 255, 255, 0.05);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            }
+             .refresh-btn:hover {
+                transform: none;
+                background: rgba(0, 255, 136, 0.1);
+                box-shadow: 0 4px 15px rgba(0, 255, 136, 0.2);
+            }
+             .refresh-btn:active {
+                transform: scale(0.95);
+                background: rgba(0, 255, 136, 0.2);
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
+    <header class="header">
         <h1>🔥FIRE READERS🔥</h1>
         <p>Financial • Independence • Retire • Early</p>
-    </div>
+    </header>
     
-    <div class="news-container">
-        <div class="api-note">
+    <main class="news-container">
+        <div class="api-note" role="status" aria-live="polite">
             🔥 Live FIRE community discussions organized by subreddit size, sorted by engagement
         </div>
         
-        <div class="legend">
-            <div class="legend-title">🔥 FIRE Community Guide</div>
+        <section class="legend">
+            <h2 class="legend-title">🔥 FIRE Community Guide</h2>
             <div class="legend-grid">
                 <div class="legend-section">
                     <h3>📊 Thread Metrics</h3>
                     <div class="legend-item">
-                        <span class="legend-icon">🔥</span>
+                        <span class="legend-icon" aria-hidden="true">🔥</span>
                         <span>Upvotes (community interest)</span>
                     </div>
                     <div class="legend-item">
-                        <span class="legend-icon">💬</span>
+                        <span class="legend-icon" aria-hidden="true">💬</span>
                         <span>Comments (discussion depth)</span>
                     </div>
                     <div class="legend-item">
-                        <span class="legend-icon">⚡</span>
+                        <span class="legend-icon" aria-hidden="true">⚡</span>
                         <span>Upvote ratio (post quality)</span>
                     </div>
                     <div class="legend-item">
-                        <span class="legend-icon">👤</span>
+                        <span class="legend-icon" aria-hidden="true">👤</span>
                         <span>Original poster</span>
                     </div>
                     <div class="legend-item">
-                        <span class="legend-icon">⏰</span>
+                        <span class="legend-icon" aria-hidden="true">⏰</span>
                         <span>Time posted</span>
                     </div>
                 </div>
@@ -448,58 +590,58 @@
                 <div class="legend-section">
                     <h3>🎯 FIRE Community Types</h3>
                     <div class="legend-item">
-                        <span style="color: #00ff88;">🟢</span>
+                        <span style="background-color: var(--accent-color);" aria-hidden="true"></span>
                         <span>Standard FIRE (traditional approach)</span>
                     </div>
                     <div class="legend-item">
-                        <span style="color: #ffaa00;">🟠</span>
+                        <span style="background-color: var(--info-color-orange);" aria-hidden="true"></span>
                         <span>LeanFIRE (frugal lifestyle)</span>
                     </div>
                     <div class="legend-item">
-                        <span style="color: #00aaff;">🔵</span>
+                        <span style="background-color: var(--info-color-blue);" aria-hidden="true"></span>
                         <span>FatFIRE (luxury retirement)</span>
                     </div>
                     <div class="legend-item">
-                        <span style="color: #aa44ff;">🟣</span>
-                        <span>Alternative FIRE (Coast/Barista/Geo)</span>
+                        <span style="background-color: var(--info-color-purple);" aria-hidden="true"></span>
+                        <span>Alternative FIRE (Coast/Barista/Geo/Chubby/Military/Flamingo)</span>
                     </div>
                 </div>
                 
                 <div class="legend-section">
                     <h3>📈 Organization</h3>
                     <div class="legend-item">
-                        <span class="legend-icon">📊</span>
+                        <span class="legend-icon" aria-hidden="true">📊</span>
                         <span>Subreddits ordered by member count</span>
                     </div>
                     <div class="legend-item">
-                        <span class="legend-icon">🔝</span>
+                        <span class="legend-icon" aria-hidden="true">🔝</span>
                         <span>Posts sorted by upvotes within each sub</span>
                     </div>
                     <div class="legend-item">
-                        <span class="legend-icon">💬</span>
+                        <span class="legend-icon" aria-hidden="true">💬</span>
                         <span>Secondary sort by comment activity</span>
                     </div>
                     <div class="legend-item">
-                        <span class="legend-icon">🔄</span>
+                        <span class="legend-icon" aria-hidden="true">🔄</span>
                         <span>Live data refreshed from Reddit API</span>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
         
-        <div class="sort-indicator">
+        <div class="sort-indicator" role="status" aria-live="polite">
             🔥 Subreddits organized largest to smallest, posts sorted by engagement within each community
         </div>
         
-        <div class="loading" id="loading">
+        <div class="loading" id="loading" role="status" aria-live="assertive" aria-atomic="true">
             <div class="spinner"></div>
             Loading FIRE community discussions...
         </div>
         <div id="news-content" style="display: none;"></div>
         <div id="error-content" style="display: none;"></div>
-    </div>
+    </main>
     
-    <button class="refresh-btn" onclick="loadPosts()" title="Refresh">
+    <button class="refresh-btn" onclick="loadPosts()" title="Refresh Discussions" aria-label="Refresh FIRE Discussions">
         🔥
     </button>
 
@@ -508,73 +650,91 @@
         const FIRE_SUBREDDITS = [
             {
                 name: 'financialindependence',
-                members: '1.5M',
-                description: 'The largest and most comprehensive subreddit for all things FIRE. Covers general strategies, discussions, and personal journeys related to achieving financial independence and early retirement.'
+                members: '2.0M+',
+                description: 'The largest and most comprehensive subreddit for all things FIRE. Covers general strategies, discussions, and personal journeys related to achieving financial independence and early retirement.',
+                type: 'standard'
             },
             {
                 name: 'fatFIRE',
-                members: '446k',
-                description: 'Dedicated to those who aim for a larger nest egg and a more luxurious or comfortable retirement lifestyle.'
+                members: '450k+',
+                description: 'Dedicated to those who aim for a larger nest egg and a more luxurious or comfortable retirement lifestyle.',
+                type: 'fatfire'
             },
             {
                 name: 'leanfire',
-                members: '336k',
-                description: 'For individuals pursuing FIRE with a highly frugal, minimalist lifestyle, aiming for a lower annual spending in retirement.'
+                members: '340k+',
+                description: 'For individuals pursuing FIRE with a highly frugal, minimalist lifestyle, aiming for a lower annual spending in retirement.',
+                type: 'leanfire'
             },
             {
                 name: 'ChubbyFIRE',
-                members: '117k',
-                description: 'This community sits between LeanFIRE and FatFIRE, focusing on a comfortable but not extravagant retirement.'
+                members: '120k+',
+                description: 'This community sits between LeanFIRE and FatFIRE, focusing on a comfortable but not extravagant retirement.',
+                type: 'alternative'
             },
             {
                 name: 'coastFIRE',
-                members: '107k',
-                description: 'For those who save aggressively early in their careers, then let compound interest grow their investments to cover retirement, without needing to make further contributions.'
+                members: '110k+',
+                description: 'For those who save aggressively early in their careers, then let compound interest grow their investments to cover retirement, without needing to make further contributions.',
+                type: 'alternative'
             },
             {
                 name: 'FIRE',
-                members: '45k',
-                description: 'A broad community for general discussions, philosophies, and news surrounding the FIRE movement.'
+                members: '50k+',
+                description: 'A broad community for general discussions, philosophies, and news surrounding the FIRE movement.',
+                type: 'standard'
             },
             {
                 name: 'BaristaFIRE',
-                members: '22k',
-                description: 'Focuses on semi-retirement, where part-time work supplements passive income to cover expenses and benefits.'
+                members: '25k+',
+                description: 'Focuses on semi-retirement, where part-time work supplements passive income to cover expenses and benefits.',
+                type: 'alternative'
             },
             {
                 name: 'GeoFIRE',
-                members: '15k',
-                description: 'Discusses achieving FIRE through geographic arbitrage, by moving to lower cost-of-living areas (domestically or internationally).'
+                members: '15k+',
+                description: 'Discusses achieving FIRE through geographic arbitrage, by moving to lower cost-of-living areas (domestically or internationally).',
+                type: 'alternative'
             },
             {
                 name: 'MilitaryFIRE',
-                members: '12k',
-                description: 'A niche community specifically for current and former military members and their families discussing FIRE strategies relevant to their unique circumstances.'
+                members: '12k+',
+                description: 'A niche community specifically for current and former military members and their families discussing FIRE strategies relevant to their unique circumstances.',
+                type: 'alternative'
             },
             {
                 name: 'FlamingoFIRE',
-                members: '8k',
-                description: 'A less common "flavor," often described as reaching approximately half of your full FIRE number, allowing you to work less or take a break while your investments continue to grow.'
+                members: '8k+',
+                description: 'A less common "flavor," often described as reaching approximately half of your full FIRE number, allowing you to work less or take a break while your investments continue to grow.',
+                type: 'alternative'
             }
         ];
 
+        // Function to fetch posts from a single subreddit - DIRECT REDDIT API
         async function fetchSubreddit(subreddit, limit = 8) {
             try {
+                // Direct Reddit API call - this works without CORS issues
                 const response = await fetch(`https://www.reddit.com/r/${subreddit}/hot.json?limit=${limit}`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const data = await response.json();
                 
                 return data.data.children.map(post => {
+                    const postData = post.data;
                     return {
-                        title: post.data.title,
-                        url: post.data.url.startsWith('/') ? `https://reddit.com${post.data.url}` : post.data.url,
-                        redditUrl: `https://reddit.com${post.data.permalink}`,
+                        title: postData.title,
+                        url: postData.url.startsWith('/') ? `https://reddit.com${postData.url}` : postData.url,
+                        redditUrl: `https://reddit.com${postData.permalink}`,
                         source: `r/${subreddit}`,
-                        publishedAt: new Date(post.data.created_utc * 1000).toISOString(),
-                        description: post.data.selftext || post.data.title,
-                        score: post.data.score,
-                        comments: post.data.num_comments,
-                        ratio: Math.round(post.data.upvote_ratio * 100),
-                        author: post.data.author,
+                        publishedAt: new Date(postData.created_utc * 1000).toISOString(),
+                        description: postData.selftext || postData.title,
+                        score: postData.score,
+                        comments: postData.num_comments,
+                        ratio: Math.round(postData.upvote_ratio * 100),
+                        author: postData.author,
                         subreddit: subreddit
                     };
                 });
@@ -584,6 +744,7 @@
             }
         }
 
+        // Function to fetch posts from all defined FIRE subreddits
         async function fetchAllFIRESubreddits() {
             const subredditData = {};
             
@@ -599,150 +760,168 @@
                 
                 subredditData[subreddit.name] = {
                     info: subreddit,
-                    posts: sortedPosts.slice(0, 8) // Top 8 posts per subreddit
+                    posts: sortedPosts.slice(0, 8)
                 };
             }
             
             return subredditData;
         }
         
+        // Function to truncate text to a word limit
         function truncateText(text, wordLimit) {
             if (!text) return '';
-            const words = text.split(' ');
+            const words = text.split(/\s+/);
             if (words.length <= wordLimit) return text;
             return words.slice(0, wordLimit).join(' ') + '...';
         }
         
+        // Function to format time difference
         function getTimeAgo(dateString) {
             const now = new Date();
             const published = new Date(dateString);
-            const diffInMinutes = Math.floor((now - published) / (1000 * 60));
+            const diffInSeconds = Math.floor((now - published) / 1000);
             
+            if (diffInSeconds < 60) return `${diffInSeconds}s`;
+            const diffInMinutes = Math.floor(diffInSeconds / 60);
             if (diffInMinutes < 60) return `${diffInMinutes}m`;
-            if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}h`;
-            return `${Math.floor(diffInMinutes / 1440)}d`;
-        }
+            const diffInHours = Math.floor(diffInMinutes / 60);
+            if (diffInHours < 24) return `${diffInHours}h`;
+           const diffInDays = Math.floor(diffInHours / 24);
+           if (diffInDays < 30) return `${diffInDays}d`;
+           const diffInMonths = Math.floor(diffInDays / 30);
+           if (diffInMonths < 12) return `${diffInMonths}mo`;
+           return `${Math.floor(diffInMonths / 12)}y`;
+       }
 
-        function formatNumber(num) {
-            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-            if (num >= 1000) return (num / 1000).toFixed(1) + 'k';
-            return num.toString();
-        }
-        
-        function createFIRECard(post) {
-            const timeAgo = getTimeAgo(post.publishedAt);
-            const snippet = truncateText(post.description || post.title, 30);
-            
-            return `
-                <div class="fire-card">
-                    <a href="${post.redditUrl}" target="_blank" class="fire-title">
-                        ${post.title}
-                    </a>
-                    
-                    <div class="fire-type">
-                        ${post.subreddit}
-                    </div>
-                    
-                    <div class="fire-metrics">
-                        <div class="fire-metric">
-                            <span class="fire-metric-icon">🔥</span>
-                            <span>${formatNumber(post.score)}</span>
-                        </div>
-                        <div class="fire-metric">
-                            <span class="fire-metric-icon">💬</span>
-                            <span>${formatNumber(post.comments)}</span>
-                        </div>
-                        <div class="fire-metric">
-                            <span class="fire-metric-icon">⚡</span>
-                            <span>${post.ratio}%</span>
-                        </div>
-                        <div class="fire-metric">
-                            <span class="fire-metric-icon">👤</span>
-                            <span>u/${post.author.substring(0, 6)}</span>
-                        </div>
-                    </div>
-                    
-                    <div class="fire-snippet">
-                        ${snippet}
-                    </div>
-                    
-                    <div class="fire-meta">
-                        <span class="fire-source">${post.source}</span>
-                        <span class="timestamp">${timeAgo} ago</span>
-                    </div>
-                </div>
-            `;
-        }
-        
-        function displayPosts(subredditData) {
-            const container = document.getElementById('news-content');
-            let html = '';
-            
-            // Display each subreddit as its own section
-            for (const subredditName of FIRE_SUBREDDITS.map(s => s.name)) {
-                const data = subredditData[subredditName];
-                if (data && data.posts.length > 0) {
-                    html += `
-                        <div class="subreddit-section">
-                            <h2 class="subreddit-title">
-                                r/${data.info.name}
-                                <span class="member-count">${data.info.members} members</span>
-                            </h2>
-                            <div class="subreddit-description">
-                                ${data.info.description}
-                            </div>
-                            <div class="news-grid">
-                                ${data.posts.map(post => createFIRECard(post)).join('')}
-                            </div>
-                        </div>
-                    `;
-                }
-            }
-            
-            container.innerHTML = html;
-        }
-        
-        function showError(message) {
-            const errorContainer = document.getElementById('error-content');
-            errorContainer.innerHTML = `
-                <div class="error">
-                    <h3>Unable to load FIRE discussions</h3>
-                    <p>${message}</p>
-                    <p>Check the browser console for details.</p>
-                </div>
-            `;
-            errorContainer.style.display = 'block';
-        }
-        
-        async function loadPosts() {
-            const loading = document.getElementById('loading');
-            const content = document.getElementById('news-content');
-            const errorContent = document.getElementById('error-content');
-            
-            loading.style.display = 'block';
-            content.style.display = 'none';
-            errorContent.style.display = 'none';
-            
-            try {
-                console.log('Fetching FIRE community discussions...');
-                
-                const subredditData = await fetchAllFIRESubreddits();
-                
-                console.log('Fetched FIRE posts from all subreddits');
-                
-                displayPosts(subredditData);
-                
-                loading.style.display = 'none';
-                content.style.display = 'block';
-                
-            } catch (error) {
-                console.error('Error loading FIRE posts:', error);
-                loading.style.display = 'none';
-                showError(error.message);
-            }
-        }
-        
-        document.addEventListener('DOMContentLoaded', loadPosts);
-    </script>
+       // Function to format large numbers (e.g., 12345 to 12.3k)
+       function formatNumber(num) {
+           if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+           if (num >= 1000) return (num / 1000).toFixed(1) + 'k';
+           return num.toString();
+       }
+       
+       // Function to create HTML for a single FIRE card
+       function createFIRECard(post, subredditType) {
+           const timeAgo = getTimeAgo(post.publishedAt);
+           const snippet = truncateText(post.description, 25);
+           const cardClass = `fire-card ${subredditType}`;
+           
+           return `
+               <div class="${cardClass}" tabindex="0" role="article" aria-labelledby="post-title-${post.subreddit}-${post.score}" aria-describedby="post-snippet-${post.subreddit}-${post.score}">
+                   <a href="${post.redditUrl}" target="_blank" rel="noopener noreferrer" class="fire-title" id="post-title-${post.subreddit}-${post.score}">
+                       ${post.title}
+                   </a>
+                   
+                   <div class="fire-type">
+                       r/${post.subreddit}
+                   </div>
+                   
+                   <div class="fire-metrics">
+                       <div class="fire-metric" title="${post.score} Upvotes">
+                           <span class="fire-metric-icon" aria-hidden="true">🔥</span>
+                           <span>${formatNumber(post.score)}</span>
+                       </div>
+                       <div class="fire-metric" title="${post.comments} Comments">
+                           <span class="fire-metric-icon" aria-hidden="true">💬</span>
+                           <span>${formatNumber(post.comments)}</span>
+                       </div>
+                       <div class="fire-metric" title="${post.ratio}% Upvote Ratio">
+                           <span class="fire-metric-icon" aria-hidden="true">⚡</span>
+                           <span>${post.ratio}%</span>
+                       </div>
+                       <div class="fire-metric" title="Posted by u/${post.author}">
+                           <span class="fire-metric-icon" aria-hidden="true">👤</span>
+                           <span>u/${truncateText(post.author, 1)}</span>
+                       </div>
+                   </div>
+                   
+                   <p class="fire-snippet" id="post-snippet-${post.subreddit}-${post.score}">
+                       ${snippet}
+                   </p>
+                   
+                   <div class="fire-meta">
+                       <span class="fire-source" aria-label="Source subreddit">${post.source}</span>
+                       <time class="timestamp" datetime="${post.publishedAt}" aria-label="Time posted">${timeAgo} ago</time>
+                   </div>
+               </div>
+           `;
+       }
+       
+       // Function to display fetched posts in the UI
+       function displayPosts(subredditData) {
+           const container = document.getElementById('news-content');
+           let html = '';
+           
+           // Loop through subreddits in the predefined order
+           for (const subredditInfo of FIRE_SUBREDDITS) {
+               const data = subredditData[subredditInfo.name];
+               if (data && data.posts.length > 0) {
+                   html += `
+                       <section class="subreddit-section">
+                           <h2 class="subreddit-title">
+                               r/${data.info.name}
+                               <span class="member-count">${data.info.members} members</span>
+                           </h2>
+                           <p class="subreddit-description">
+                               ${data.info.description}
+                           </p>
+                           <div class="news-grid">
+                               ${data.posts.map(post => createFIRECard(post, data.info.type)).join('')}
+                           </div>
+                       </section>
+                   `;
+               }
+           }
+           
+           container.innerHTML = html;
+       }
+       
+       // Function to show error message
+       function showError(message) {
+           const errorContainer = document.getElementById('error-content');
+           errorContainer.innerHTML = `
+               <div class="error" role="alert" aria-live="assertive">
+                   <h3>Unable to load FIRE discussions</h3>
+                   <p>${message || 'An unknown error occurred. Please try again later.'}</p>
+                   <p>This might be due to API rate limits or network issues.</p>
+               </div>
+           `;
+           errorContainer.style.display = 'block';
+       }
+       
+       // Main function to load and display posts
+       async function loadPosts() {
+           const loading = document.getElementById('loading');
+           const content = document.getElementById('news-content');
+           const errorContent = document.getElementById('error-content');
+           
+           // Show loading, hide content and errors
+           loading.style.display = 'flex';
+           content.style.display = 'none';
+           errorContent.style.display = 'none';
+           
+           try {
+               console.log('Fetching FIRE community discussions...');
+               
+               const subredditData = await fetchAllFIRESubreddits();
+               
+               console.log('Fetched FIRE posts from all subreddits');
+               
+               displayPosts(subredditData);
+               
+               // Hide loading, show content
+               loading.style.display = 'none';
+               content.style.display = 'block';
+               
+           } catch (error) {
+               console.error('Error loading FIRE posts:', error);
+               loading.style.display = 'none';
+               showError(error.message);
+           }
+       }
+       
+       // Load posts when the DOM is fully loaded
+       document.addEventListener('DOMContentLoaded', loadPosts);
+   </script>
 </body>
 </html>
