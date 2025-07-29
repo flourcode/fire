@@ -313,6 +313,17 @@
             align-self: flex-start;
         }
 
+        /* Specific colors for fire-type backgrounds */
+        .fire-type.standard { background-color: rgba(0, 255, 136, 0.15); border-color: rgba(0, 255, 136, 0.3); color: var(--accent-color); }
+        .fire-type.leanfire { background-color: rgba(255, 170, 0, 0.15); border-color: rgba(255, 170, 0, 0.3); color: var(--info-color-orange); }
+        .fire-type.fatfire { background-color: rgba(0, 170, 255, 0.15); border-color: rgba(0, 170, 255, 0.3); color: var(--info-color-blue); }
+        .fire-type.henryfinance { background-color: rgba(128, 0, 128, 0.15); border-color: rgba(128, 0, 128, 0.3); color: #c080ff; } /* New color for HENRY */
+        .fire-type.alternative { 
+            background-color: rgba(170, 68, 255, 0.15); 
+            border-color: rgba(170, 68, 255, 0.3); 
+            color: var(--info-color-purple); 
+        }
+
         .fire-snippet {
             font-size: 0.7rem;
             line-height: 1.4;
@@ -469,14 +480,16 @@
                 padding: var(--spacing-sm);
             }
             .fire-metrics {
-                flex-direction: column;
+                flex-direction: row;
+                justify-content: space-around;
                 align-items: flex-start;
                 font-size: 0.6rem;
                 gap: var(--spacing-xs);
                 margin-bottom: var(--spacing-sm);
             }
             .fire-metric {
-                justify-content: flex-start;
+                justify-content: center;
+                flex: 1;
             }
             .fire-meta {
                 font-size: 0.45rem;
@@ -602,6 +615,10 @@
                         <span>FatFIRE (luxury retirement)</span>
                     </div>
                     <div class="legend-item">
+                        <span style="background-color: #c080ff;" aria-hidden="true"></span>
+                        <span>HENRY (High Earner, Not Rich Yet)</span>
+                    </div>
+                    <div class="legend-item">
                         <span style="background-color: var(--info-color-purple);" aria-hidden="true"></span>
                         <span>Alternative FIRE (Coast/Barista/Geo/Chubby/Military/Flamingo)</span>
                     </div>
@@ -646,12 +663,18 @@
     </button>
 
     <script>
-        // FIRE subreddits in order from largest to smallest
+        // FIRE subreddits in the specified order
         const FIRE_SUBREDDITS = [
             {
                 name: 'financialindependence',
                 members: '2.0M+',
                 description: 'The largest and most comprehensive subreddit for all things FIRE. Covers general strategies, discussions, and personal journeys related to achieving financial independence and early retirement.',
+                type: 'standard'
+            },
+            {
+                name: 'FIRE',
+                members: '50k+',
+                description: 'A broad community for general discussions, philosophies, and news surrounding the FIRE movement.',
                 type: 'standard'
             },
             {
@@ -667,6 +690,12 @@
                 type: 'leanfire'
             },
             {
+                name: 'HENRYfinance',
+                members: '170k+',
+                description: 'For High Earners, Not Rich Yet. A spectrum of earners, on average, above $250K yearly income with a net worth under $2M.',
+                type: 'henryfinance' // New type
+            },
+            {
                 name: 'ChubbyFIRE',
                 members: '120k+',
                 description: 'This community sits between LeanFIRE and FatFIRE, focusing on a comfortable but not extravagant retirement.',
@@ -679,21 +708,9 @@
                 type: 'alternative'
             },
             {
-                name: 'FIRE',
-                members: '50k+',
-                description: 'A broad community for general discussions, philosophies, and news surrounding the FIRE movement.',
-                type: 'standard'
-            },
-            {
                 name: 'BaristaFIRE',
                 members: '25k+',
                 description: 'Focuses on semi-retirement, where part-time work supplements passive income to cover expenses and benefits.',
-                type: 'alternative'
-            },
-            {
-                name: 'GeoFIRE',
-                members: '15k+',
-                description: 'Discusses achieving FIRE through geographic arbitrage, by moving to lower cost-of-living areas (domestically or internationally).',
                 type: 'alternative'
             },
             {
@@ -703,7 +720,13 @@
                 type: 'alternative'
             },
             {
-                name: 'FlamingoFIRE',
+                name: 'GeoFIRE', // Moved to accommodate the new order
+                members: '15k+',
+                description: 'Discusses achieving FIRE through geographic arbitrage, by moving to lower cost-of-living areas (domestically or internationally).',
+                type: 'alternative'
+            },
+            {
+                name: 'FlamingoFIRE', // Moved to accommodate the new order
                 members: '8k+',
                 description: 'A less common "flavor," often described as reaching approximately half of your full FIRE number, allowing you to work less or take a break while your investments continue to grow.',
                 type: 'alternative'
@@ -803,7 +826,7 @@
        // Function to create HTML for a single FIRE card
        function createFIRECard(post, subredditType) {
            const timeAgo = getTimeAgo(post.publishedAt);
-           const snippet = truncateText(post.description, 25);
+           const snippet = truncateText(post.description, 40); 
            const cardClass = `fire-card ${subredditType}`;
            
            return `
@@ -813,9 +836,13 @@
                    </a>
                    
                    <div class="fire-type">
-                       r/${post.subreddit}
+                       R/${post.subreddit.toUpperCase()}
                    </div>
                    
+                   <p class="fire-snippet" id="post-snippet-${post.subreddit}-${post.score}">
+                       ${snippet}
+                   </p>
+
                    <div class="fire-metrics">
                        <div class="fire-metric" title="${post.score} Upvotes">
                            <span class="fire-metric-icon" aria-hidden="true">🔥</span>
@@ -835,12 +862,8 @@
                        </div>
                    </div>
                    
-                   <p class="fire-snippet" id="post-snippet-${post.subreddit}-${post.score}">
-                       ${snippet}
-                   </p>
-                   
                    <div class="fire-meta">
-                       <span class="fire-source" aria-label="Source subreddit">${post.source}</span>
+                       <span class="fire-source" aria-label="Source subreddit">R/${post.subreddit.toUpperCase()}</span>
                        <time class="timestamp" datetime="${post.publishedAt}" aria-label="Time posted">${timeAgo} ago</time>
                    </div>
                </div>
